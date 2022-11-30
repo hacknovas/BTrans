@@ -1,0 +1,166 @@
+{
+    "compiler": {
+        "version": "0.8.7+commit.e28d00a7"
+    },
+    "language": "Solidity",
+    "output": {
+        "abi": [
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": true,
+                        "internalType": "address",
+                        "name": "recipientof",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "address",
+                        "name": "recipientis",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "string",
+                        "name": "recipientName",
+                        "type": "string"
+                    }
+                ],
+                "name": "recipientD",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": true,
+                        "internalType": "address",
+                        "name": "_from",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "address",
+                        "name": "_to",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "uint256",
+                        "name": "amount",
+                        "type": "uint256"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "string",
+                        "name": "symb",
+                        "type": "string"
+                    }
+                ],
+                "name": "transaction",
+                "type": "event"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address payable",
+                        "name": "_to",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "sym",
+                        "type": "string"
+                    }
+                ],
+                "name": "_transfer",
+                "outputs": [],
+                "stateMutability": "payable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "_recipient",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "_name",
+                        "type": "string"
+                    }
+                ],
+                "name": "recipients",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "address",
+                        "name": "_from",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "_to",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "amount",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "sym",
+                        "type": "string"
+                    }
+                ],
+                "name": "saveTX",
+                "outputs": [],
+                "stateMutability": "nonpayable",
+                "type": "function"
+            }
+        ],
+        "devdoc": {
+            "kind": "dev",
+            "methods": {},
+            "version": 1
+        },
+        "userdoc": {
+            "kind": "user",
+            "methods": {},
+            "version": 1
+        }
+    },
+    "settings": {
+        "compilationTarget": {
+            "contracts/paypal.sol": "payments"
+        },
+        "evmVersion": "london",
+        "libraries": {},
+        "metadata": {
+            "bytecodeHash": "ipfs"
+        },
+        "optimizer": {
+            "enabled": false,
+            "runs": 200
+        },
+        "remappings": []
+    },
+    "sources": {
+        "contracts/paypal.sol": {
+            "keccak256": "0xf261289bf34cf9b1d99a8b8896564bad91f55440597edb2a4222dca43846e4c7",
+            "license": "GPL-3.0",
+            "urls": [
+                "bzz-raw://512af264847ee4c417b28d3ff5afb379a0dc9accea1ff1fb8b827bcf784d684d",
+                "dweb:/ipfs/QmeMEvPS1Ug1xj2at6tBDurQCV7GTsCEndPZiHTRepCiq2"
+            ]
+        }
+    },
+    "version": 1
+}
