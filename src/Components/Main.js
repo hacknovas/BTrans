@@ -9,22 +9,19 @@ export default function Main() {
 
   return (
     <>
-      <div className='w-full mt-12 flex flex-col justify-center items-center'>
-        <div className='flex justify-around text-log font-medium items-center bg-gray-900 border-2 border-b-0 text-white border-opacity-50 border-blue-800 rounded-t-lg w-1/2'>
-          {/* send */}
-          <li onClick={() => setRoute('Send')} className={`list-none cursor-pointer py-2 w-1/4 ${route == 'send' ? "bg-black bg-opacity-60" : "bg-gray-900"} text-center rounded-tl-lg hover:bg-black hover:bg-opacity-60`}>
+      <div className='w-full mt-12 flex flex-col justify-center items-center ' >
+        <div className='flex justify-around text-log font-medium items-center border-top text-white rounded-t-lg w-1/2'>
+          <li onClick={() => setRoute('Send')} className={`rounded-lg border-bottom list-none cursor-pointer py-2 w-1/4 ${route == 'send' ? "" : ""} text-center rounded-tl-lg hover:bg-black hover:bg-opacity-60`}>
             Send
           </li>
-          {/* Recipients */}
-          <li onClick={() => setRoute('Recipient')} className={`list-none cursor-pointer py-2 w-1/4 ${route == 'recipients' ? "bg-black bg-opacity-60" : "bg-gray-900"} text-center rounded-tl-lg hover:bg-black hover:bg-opacity-60`}>
+          <li onClick={() => setRoute('Recipient')} className={`rounded-lg border-bottom list-none cursor-pointer py-2 w-1/4 ${route == 'recipients' ? "" : ""} text-center rounded-tl-lg hover:bg-black hover:bg-opacity-60`}>
             Recipients
           </li>
-          {/* Recent Tx */}
-          <li onClick={() => setRoute('RecentTX')} className={`list-none cursor-pointer py-2 w-1/4 ${route == 'recent_tx' ? "bg-black bg-opacity-60" : "bg-gray-900"} text-center rounded-tl-lg hover:bg-black hover:bg-opacity-60`}>
-            Recent Tx
+          <li onClick={() => setRoute('RecentTX')} className={`rounded-lg border-bottom list-none cursor-pointer py-2 w-1/4 ${route == 'recent_tx' ? "" : ""} text-center rounded-tl-lg hover:bg-black hover:bg-opacity-60`}>
+            Recent Txn
           </li>
         </div>
-        <div className='bg-black bg-opacity-60 pb-5 overflow-y-auto border-2 border-t-0 shadow-lg border-opacity-50 border-blue-800 rounded-b-lg w-1/2'>
+        <div className='shadow-lg p-3 mb-5 rounded pb-5 overflow-y-auto  rounded-b-lg w-1/2  border-bottom'>
           {(() => {
             if (route == 'Send') {
               return <Send />

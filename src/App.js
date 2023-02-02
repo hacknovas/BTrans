@@ -4,7 +4,8 @@ import Header from "./Components/Header";
 import Main from "./Components/Main";
 import { ethers } from "ethers";
 import paypal from "./paymentt/paypal.json";
-import {ERCABI} from "./paymentt/abi/ERCABI"
+import { ERCABI } from "./paymentt/abi/ERCABI";
+
 
 const AppState = createContext();
 
@@ -41,10 +42,6 @@ function App() {
   const [recentTX, setrecentTX] = useState({ txhash: "", from: "", to: "", amount: "", sym: "" });
   const [saveTxLoad, setsaveTxLoad] = useState(false);
 
-  // 
-  //erc20 genre
-
-
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
 
@@ -52,28 +49,34 @@ function App() {
   const paymentContract = new ethers.Contract(paymentContractAdd, paypal.output.abi, signer);
 
   const selectToken = async () => {
-    setercload(true);
-    const name = await ERCContract.name();
-    const symbol = await ERCContract.symbol();
-    const balance = await ERCContract.balanceOf(address);
+    try {
+      setercload(true);
+      const name = await ERCContract.name();
+      const symbol = await ERCContract.symbol();
+      const balance = await ERCContract.balanceOf(address);
 
-    setBalance(ethers.utils.formatEther(balance));
-    setSymbol(symbol);
-    setCurrency(name);
-    settokenChanged(true);
-    setercload(false);
+      setBalance(ethers.utils.formatEther(balance));
+      setSymbol(symbol);
+      setCurrency(name);
+      settokenChanged(true);
+      setercload(false);
+    } catch (error) {
+      setercload(false);
+
+    }
+
   }
 
   const removeToken = async () => {
-    if (chain == "Sepolia") {
+    if (chain === "Sepolia") {
       setCurrency("SepoliaETH");
       setLogin(true);
       setSymbol("rEth");
-    } else if (chain == "Goerli") {
+    } else if (chain === "Goerli") {
       setCurrency("GoerliETH")
       setSymbol("rETH")
       setLogin(true);
-    } else if (chain == "Polygon") {
+    } else if (chain === "Polygon") {
       setCurrency("Matic")
       setLogin(true);
       setSymbol("Matic")
@@ -115,13 +118,12 @@ function App() {
       }
       setMessage("Transaction Successful");
     } catch (error) {
-      setError(error.message);
+      setError("Error Occured.");
     }
 
     setsaveTxLoad(false);
   }
 
-  // 
   async function getBal() {
     const provider = new ethers.providers.Web3Provider(ethereum); //which N/W
     const signer = provider.getSigner();
@@ -173,7 +175,7 @@ function App() {
 
       setMessage("Transaction Saved");
     } catch (error) {
-      setError(error.message);
+      setError("Failed.");
     }
 
     setshowRecentTX(false);
@@ -188,10 +190,17 @@ function App() {
       }}>
         <div className="min-w-full h-screen">
           {
-            login ? <div className="min-w-full min-h-full">
-              <Header />
-              <Main />
-            </div> :
+            login
+              ?
+              <div className="d-flex flex-column">
+                <div className="">
+                  <Header />
+                </div>
+                <div className="">
+                  <Main />
+                </div>
+              </div>
+              :
               <Login />
           }
         </div>
