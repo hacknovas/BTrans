@@ -6,47 +6,54 @@ import { ethers } from "ethers";
 import paypal from "./paymentt/paypal.json";
 import { ERCABI } from "./paymentt/abi/ERCABI";
 
-
 const AppState = createContext();
 
 function App() {
   const { ethereum } = window;
 
   const [login, setLogin] = useState(false);
-  const [address, setaddress] = useState('');
-  const [chain, setChain] = useState('');
+  const [address, setaddress] = useState("");
+  const [chain, setChain] = useState("");
 
   const [symbol, setSymbol] = useState();
   const [balance, setBalance] = useState();
   const [currency, setCurrency] = useState();
 
-  const [ercTokenAdd, setercTokenAdd] = useState('');
+  const [ercTokenAdd, setercTokenAdd] = useState("");
 
-  const [recipientAddress, setRecipientAddress] = useState('');
-  const [amount, setAmount] = useState('');
+  const [recipientAddress, setRecipientAddress] = useState("");
+  const [amount, setAmount] = useState("");
 
-  const [paymentContractAdd, setpaymentContractAdd] = useState('');
+  const [paymentContractAdd, setpaymentContractAdd] = useState("");
   const [exploresr, setexploresr] = useState();
 
-  const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
 
   const [tokenChanged, settokenChanged] = useState(false);
-
 
   const [showErc, setShowErc] = useState(false);
   const [ercload, setercload] = useState(false);
 
-
   const [showRecentTX, setshowRecentTX] = useState(false);
-  const [recentTX, setrecentTX] = useState({ txhash: "", from: "", to: "", amount: "", sym: "" });
+  const [recentTX, setrecentTX] = useState({
+    txhash: "",
+    from: "",
+    to: "",
+    amount: "",
+    sym: "",
+  });
   const [saveTxLoad, setsaveTxLoad] = useState(false);
 
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
 
   const ERCContract = new ethers.Contract(ercTokenAdd, ERCABI, signer);
-  const paymentContract = new ethers.Contract(paymentContractAdd, paypal.output.abi, signer);
+  const paymentContract = new ethers.Contract(
+    paymentContractAdd,
+    paypal.output.abi,
+    signer
+  );
 
   const selectToken = async () => {
     try {
@@ -62,10 +69,8 @@ function App() {
       setercload(false);
     } catch (error) {
       setercload(false);
-
     }
-
-  }
+  };
 
   const removeToken = async () => {
     if (chain === "Sepolia") {
@@ -73,29 +78,30 @@ function App() {
       setLogin(true);
       setSymbol("rEth");
     } else if (chain === "Goerli") {
-      setCurrency("GoerliETH")
-      setSymbol("rETH")
+      setCurrency("GoerliETH");
+      setSymbol("rETH");
       setLogin(true);
     } else if (chain === "Polygon") {
-      setCurrency("Matic")
+      setCurrency("Matic");
       setLogin(true);
-      setSymbol("Matic")
+      setSymbol("Matic");
     }
 
-    setercTokenAdd('');
+    setercTokenAdd("");
     settokenChanged(false);
     setShowErc(false);
     getBal();
-  }
-
+  };
 
   const transferAmount = async () => {
-    setMessage('');
+    setMessage("");
 
     try {
-
       if (tokenChanged) {
-        const tx = await ERCContract.transfer(recipientAddress, ethers.utils.parseEther(amount));
+        const tx = await ERCContract.transfer(
+          recipientAddress,
+          ethers.utils.parseEther(amount)
+        );
         await tx.wait();
         selectToken();
 
@@ -104,14 +110,13 @@ function App() {
           from: address,
           to: recipientAddress,
           amount: amount,
-          sym: symbol
-        })
+          sym: symbol,
+        });
 
         setshowRecentTX(true);
-
       } else {
         const tx = await paymentContract._transfer(recipientAddress, symbol, {
-          value: ethers.utils.parseEther(amount)
+          value: ethers.utils.parseEther(amount),
         });
         await tx.wait();
         getBal();
@@ -122,10 +127,10 @@ function App() {
     }
 
     setsaveTxLoad(false);
-  }
+  };
 
   async function getBal() {
-    const provider = new ethers.providers.Web3Provider(ethereum); //which N/W
+    const provider = new ethers.providers.Web3Provider(ethereum);
     const signer = provider.getSigner();
     const bal = await signer.getBalance();
     setBalance(ethers.utils.formatEther(bal));
@@ -141,13 +146,13 @@ function App() {
         setexploresr("https://sepolia.etherscan.io/");
       } else if (chainId === "0x5") {
         setChain("Goerli");
-        setCurrency("GoerliETH")
-        setpaymentContractAdd("0x8bd6Bd652Ac44d74465851291B25dB1DAE15D8fc")
-        setSymbol("rETH")
+        setCurrency("GoerliETH");
+        setpaymentContractAdd("0x8bd6Bd652Ac44d74465851291B25dB1DAE15D8fc");
+        setSymbol("rETH");
         setexploresr("https://goerli.etherscan.io/");
       } else if (chainId === "0x13881") {
         setChain("Polygon");
-        setCurrency("Matic")
+        setCurrency("Matic");
         setpaymentContractAdd("0x534cB0d23888Ae9A9DdC1b8a0F2c7269365916ef");
         setSymbol("Matic");
         setexploresr("https://mumbai.polygonscan.com/");
@@ -156,20 +161,23 @@ function App() {
       }
       getBal();
       removeToken();
-    })
+    });
 
     ethereum.on("accountsChanged", async (accounts) => {
       setaddress(accounts[0]);
       getBal();
-    })
+    });
   });
-
-
 
   const saveTX = async () => {
     setsaveTxLoad(true);
     try {
-      const tx = await paymentContract.saveTX(recentTX.from, recentTX.to, ethers.utils.parseEther(recentTX.amount), recentTX.sym);
+      const tx = await paymentContract.saveTX(
+        recentTX.from,
+        recentTX.to,
+        ethers.utils.parseEther(recentTX.amount),
+        recentTX.sym
+      );
 
       await tx.wait();
 
@@ -180,29 +188,71 @@ function App() {
 
     setshowRecentTX(false);
     setsaveTxLoad(false);
-  }
-
+  };
 
   return (
     <>
-      <AppState.Provider value={{
-        login, setLogin, address, setaddress, chain, setChain, symbol, setSymbol, balance, setBalance, currency, setCurrency, getBal, ercTokenAdd, setercTokenAdd, amount, setAmount, recipientAddress, setRecipientAddress, paymentContractAdd, setpaymentContractAdd, setexploresr, exploresr, error, setError, message, setMessage, tokenChanged, settokenChanged, showErc, setShowErc, ercload, setercload, selectToken, transferAmount, removeToken, showRecentTX, setshowRecentTX, recentTX, setrecentTX, saveTxLoad, setsaveTxLoad, saveTX, paymentContract
-      }}>
+      <AppState.Provider
+        value={{
+          login,
+          setLogin,
+          address,
+          setaddress,
+          chain,
+          setChain,
+          symbol,
+          setSymbol,
+          balance,
+          setBalance,
+          currency,
+          setCurrency,
+          getBal,
+          ercTokenAdd,
+          setercTokenAdd,
+          amount,
+          setAmount,
+          recipientAddress,
+          setRecipientAddress,
+          paymentContractAdd,
+          setpaymentContractAdd,
+          setexploresr,
+          exploresr,
+          error,
+          setError,
+          message,
+          setMessage,
+          tokenChanged,
+          settokenChanged,
+          showErc,
+          setShowErc,
+          ercload,
+          setercload,
+          selectToken,
+          transferAmount,
+          removeToken,
+          showRecentTX,
+          setshowRecentTX,
+          recentTX,
+          setrecentTX,
+          saveTxLoad,
+          setsaveTxLoad,
+          saveTX,
+          paymentContract,
+        }}
+      >
         <div className="min-w-full h-screen">
-          {
-            login
-              ?
-              <div className="d-flex flex-column">
-                <div className="">
-                  <Header />
-                </div>
-                <div className="">
-                  <Main />
-                </div>
+          {login ? (
+            <div className="d-flex flex-column">
+              <div className="">
+                <Header />
               </div>
-              :
-              <Login />
-          }
+              <div className="">
+                <Main />
+              </div>
+            </div>
+          ) : (
+            <Login />
+          )}
         </div>
       </AppState.Provider>
     </>
