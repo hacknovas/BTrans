@@ -1,7 +1,7 @@
 FROM node
 WORKDIR /app
-COPY BLChain_Pay /app
+COPY Frontend /app/Frontend
 RUN npm i
 EXPOSE 3000
-WORKDIR /app/src
+WORKDIR /app/Frontend/src
 CMD ["npm","run","start"]
