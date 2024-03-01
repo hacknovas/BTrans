@@ -19,5 +19,5 @@ spec:
         image: prathameshdoni/uniswap:latest
         ports:
         - containerPort: 3000
-          hostPort: 3000
-          protocol: TCP
+          # hostPort: 3000
+          # protocol: TCP
