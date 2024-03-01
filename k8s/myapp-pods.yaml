@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: uniswapapp
+spec:
+  containers:
+  - name: uniswapapp
+    image: prathameshdoni/uniswap:latest
+    ports:
+    - containerPort: 80
