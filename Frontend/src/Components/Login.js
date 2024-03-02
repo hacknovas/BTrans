@@ -7,12 +7,14 @@ export default function Login() {
   const App = useContext(AppState);
 
   const { ethereum } = window;
+  const [MetamaskConnect, setMetamaskConnect] = useState("Connect Metamask")
   const [getLogin, setGetLogin] = useState(false);
 
   const [error, seterror] = useState("");
 
   const loginwallet = async () => {
     try {
+      setMetamaskConnect("Connecting...");
       App.getBal();
       await ethereum.request({
         method: "wallet_requestPermissions",
@@ -51,6 +53,7 @@ export default function Login() {
         );
         App.setLogin(false);
       }
+      setMetamaskConnect("Login Metamask")
     } catch (error) {
       seterror("Error Occured");
     }
@@ -66,15 +69,26 @@ export default function Login() {
 
   return (
     <>
-      <div className="min-w-full h-4/5 flex justify-center flex-col items-center ">
+      <div className="d-flex flex-wrap justify-center items-center w-50">
+        <div>
+          <img src="./Images/metamask.png"></img>
+          <div className="text-center cursor-pointer">
+            <b onClick={()=>{
+              loginwallet();
+            }}>{MetamaskConnect}</b>
+          </div>
+        </div>
+      </div>
+
+      {/* <div className="min-w-full h-4/5 flex justify-center flex-col items-center ">
         <div className="w-1/3 h-40 mt-4  shadow-lg p-3 mb-5 bg-body-none rounded flex flex-col justify-center items-center">
-          <h1 className="badge border-bottom border-top text-white text-2xl mb-3 font-medium text-center">
+          <h1 className="badge border-bottom border-top text-grey text-2xl mb-3 font-medium text-center">
             Login
           </h1>
           {getLogin ? (
             <div
               onClick={loginwallet}
-              className="flex border-bottom text-lg font-medium  cursor-pointer  text-white mt-4 bg-primary rounded-sm justify-center items-center py-1 px-2"
+              className="flex border-bottom text-lg font-medium  cursor-pointer  text-grey mt-4 bg-primary rounded-sm justify-center items-center py-1 px-2"
             >
               Connect With Metamask
             </div>
@@ -84,7 +98,7 @@ export default function Login() {
                 target="_blank"
                 href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn"
               >
-                <div className="flex border-opacity-60 bg-opacity-90 text-lg font-medium border-2 border-blue-800 cursor-pointer bg-green-800 text-white mt-4 rounded-lg justify-center items-center py-1 px-2">
+                <div className="flex border-opacity-60 bg-opacity-90 text-lg font-medium border-2 border-blue-800 cursor-pointer bg-green-800 text-grey mt-4 rounded-lg justify-center items-center py-1 px-2">
                   Install Metamask
                 </div>
               </a>
@@ -139,7 +153,7 @@ export default function Login() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

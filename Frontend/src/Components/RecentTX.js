@@ -25,14 +25,18 @@ export default function RecentTX() {
   return (
     <>
       <div className="flex flex-col items-center justify-center p-3 ">
-        <div className={`${data == [] ? "" : "hidden"}`}>
-          No Any Transaction
+        <div>
+          {data.length > 0 ? (
+            <div></div>
+          ) : (
+            <b style={{ opacity: "0.5" }}>No Any Transactions</b>
+          )}
         </div>
 
         {data.map((e, i) => {
           return (
             <div
-              className={`border-start rounded-lg text-light  w-4/5 mt-2`}
+              className={`border-start rounded-lg text-grey  w-4/5 mt-2`}
               key={i}
             >
               <div className="flex w-full items-center justify-center rounded-t-lg">
@@ -48,7 +52,7 @@ export default function RecentTX() {
                 target={"_blank"}
                 href={`${App.exploresr}/tx/${e.transactionHash}`}
               >
-                <div className="font-mono w-full rounded-b-lg bg-dark text-center cursor-pointer text-light">
+                <div className="font-mono w-full rounded-b-lg bg-dark text-center cursor-pointer text-grey">
                   View Transaction
                 </div>
               </a>
