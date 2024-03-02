@@ -41,7 +41,6 @@ export default function Header() {
         <li className="nav-item">
           <img
             src="./Images/logo1.png"
-            alt="NA"
             style={{ height: "7vh", marginLeft: "2vh", filter: "invert(1)" }}
           />
         </li>
