@@ -42,7 +42,7 @@ export default function Header() {
           <img
             src="images/logo1.png"
             alt="NA"
-            style={{ height: "7vh", marginLeft: "2vh",  filter: "invert(1)"}}
+            style={{ height: "7vh", marginLeft: "2vh", filter: "invert(1)" }}
           />
         </li>
 
@@ -72,7 +72,7 @@ export default function Header() {
         </li>
       </ul>
 
-      <div className={`${showChains ? "" : "hidden"} absolute  right-0`}>
+      <div className={`${showChains ? "" : "hidden"} absolute top-20 right-0`}>
         <div
           onClick={changeToSepolia}
           className="border-bottom text-xl py-2 px-4 mr-2 font-sans  font-medium cursor-pointer text-grey rounded-lg flex justify-between items-center"

@@ -11,6 +11,9 @@ const AppState = createContext();
 function App() {
   const { ethereum } = window;
 
+  const [paymentContract, setpaymentContract] = useState();
+  const [ERCContract, setERCContract] = useState();
+
   const [login, setLogin] = useState(false);
   const [address, setaddress] = useState("");
   const [chain, setChain] = useState("");
@@ -45,15 +48,15 @@ function App() {
   });
   const [saveTxLoad, setsaveTxLoad] = useState(false);
 
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
+  // const provider = new ethers.providers.Web3Provider(window.ethereum);
+  // const signer = provider.getSigner();
 
-  const ERCContract = new ethers.Contract(ercTokenAdd, ERCABI, signer);
-  const paymentContract = new ethers.Contract(
-    paymentContractAdd,
-    paypal.output.abi,
-    signer
-  );
+  // const ERCContract = new ethers.Contract(ercTokenAdd, ERCABI, signer);
+  // const paymentContract = new ethers.Contract(
+  //   paymentContractAdd,
+  //   paypal.output.abi,
+  //   signer
+  // );
 
   const selectToken = async () => {
     try {
@@ -135,38 +138,50 @@ function App() {
     const bal = await signer.getBalance();
     setBalance(ethers.utils.formatEther(bal));
   }
-
   useEffect(() => {
-    ethereum.on("chainChanged", async (chainId) => {
-      if (chainId === "0xaa36a7") {
-        setChain("Sepolia");
-        setCurrency("SepoliaETH");
-        setpaymentContractAdd("0x04E10a7A65170Ff32a3B9A4420b47AA4e52BEbC8");
-        setSymbol("rEth");
-        setexploresr("https://sepolia.etherscan.io/");
-      } else if (chainId === "0x5") {
-        setChain("Goerli");
-        setCurrency("GoerliETH");
-        setpaymentContractAdd("0x8bd6Bd652Ac44d74465851291B25dB1DAE15D8fc");
-        setSymbol("rETH");
-        setexploresr("https://goerli.etherscan.io/");
-      } else if (chainId === "0x13881") {
-        setChain("Polygon");
-        setCurrency("Matic");
-        setpaymentContractAdd("0x534cB0d23888Ae9A9DdC1b8a0F2c7269365916ef");
-        setSymbol("Matic");
-        setexploresr("https://mumbai.polygonscan.com/");
-      } else {
-        setLogin(false);
-      }
-      getBal();
-      removeToken();
-    });
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
 
-    ethereum.on("accountsChanged", async (accounts) => {
-      setaddress(accounts[0]);
-      getBal();
-    });
+      const ERCContract = new ethers.Contract(ercTokenAdd, ERCABI, signer);
+      const paymentContract = new ethers.Contract(
+        paymentContractAdd,
+        paypal.output.abi,
+        signer
+      );
+      setpaymentContract(paymentContract);
+      setERCContract(ERCContract);
+      ethereum.on("chainChanged", async (chainId) => {
+        if (chainId === "0xaa36a7") {
+          setChain("Sepolia");
+          setCurrency("SepoliaETH");
+          setpaymentContractAdd("0x04E10a7A65170Ff32a3B9A4420b47AA4e52BEbC8");
+          setSymbol("rEth");
+          setexploresr("https://sepolia.etherscan.io/");
+        } else if (chainId === "0x5") {
+          setChain("Goerli");
+          setCurrency("GoerliETH");
+          setpaymentContractAdd("0x8bd6Bd652Ac44d74465851291B25dB1DAE15D8fc");
+          setSymbol("rETH");
+          setexploresr("https://goerli.etherscan.io/");
+        } else if (chainId === "0x13881") {
+          setChain("Polygon");
+          setCurrency("Matic");
+          setpaymentContractAdd("0x534cB0d23888Ae9A9DdC1b8a0F2c7269365916ef");
+          setSymbol("Matic");
+          setexploresr("https://mumbai.polygonscan.com/");
+        } else {
+          setLogin(false);
+        }
+        getBal();
+        removeToken();
+      });
+
+      ethereum.on("accountsChanged", async (accounts) => {
+        setaddress(accounts[0]);
+        getBal();
+      });
+    }
   });
 
   const saveTX = async () => {
