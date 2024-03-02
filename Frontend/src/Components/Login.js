@@ -81,7 +81,6 @@ export default function Login() {
 
           <img
             src="./Images/logo1.png"
-            alt="NA"
             style={{ filter: "invert(1)", width: "10vh" }}
           />
         </div>
