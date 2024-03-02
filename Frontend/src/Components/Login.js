@@ -74,33 +74,46 @@ export default function Login() {
   }, []);
 
   return (
-    <div className="d-flex flex-wrap justify-center items-center h-100 text-center">
-      <div style={{ width: "min-content" }}>
-        <img
-          src="./Images/metamask.png"
-          className="hover:scale-90 "
-          width={100}
-        ></img>
-        <div className="cursor-pointer ">
-          <b
-            onClick={() => {
-              loginwallet();
-            }}
-          >
-            {!getLogin ? (
-              <a
-                href="https://metamask.io/download/"
-                style={{ textDecoration: "none" }}
-                target="_blank"
-              >
-                Install Metamask
-              </a>
-            ) : (
-              <>{MetamaskConnect}</>
-            )}
-          </b>
+    <>
+      <div className="text-center p-20">
+        <div className="d-flex flex-col justify-center items-center">
+          <b>Uniswap</b>
+
+          <img
+            src="images/logo1.png"
+            alt="NA"
+            style={{ filter: "invert(1)", width: "10vh" }}
+          />
         </div>
       </div>
-    </div>
+      <div className="d-flex flex-wrap justify-center items-center h-50 text-center">
+        <div style={{ width: "min-content" }}>
+          <img
+            src="./Images/metamask.png"
+            className="hover:scale-90 "
+            width={100}
+          ></img>
+          <div className="cursor-pointer ">
+            <b
+              onClick={() => {
+                loginwallet();
+              }}
+            >
+              {!getLogin ? (
+                <a
+                  href="https://metamask.io/download/"
+                  style={{ textDecoration: "none" }}
+                  target="_blank"
+                >
+                  Install Metamask
+                </a>
+              ) : (
+                <>{MetamaskConnect}</>
+              )}
+            </b>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
