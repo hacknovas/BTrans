@@ -80,7 +80,7 @@ export default function Login() {
           <b>BTrans</b>
 
           <img
-            src="images/logo1.png"
+            src="./Images/logo1.png"
             alt="NA"
             style={{ filter: "invert(1)", width: "10vh" }}
           />

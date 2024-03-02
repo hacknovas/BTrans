@@ -40,7 +40,7 @@ export default function Header() {
       <ul className="navbar justify-content-between shadow p-3 mb-5 rounded">
         <li className="nav-item">
           <img
-            src="images/logo1.png"
+            src="./Images/logo1.png"
             alt="NA"
             style={{ height: "7vh", marginLeft: "2vh", filter: "invert(1)" }}
           />
