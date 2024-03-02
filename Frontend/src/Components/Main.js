@@ -14,7 +14,7 @@ export default function Main() {
             onClick={() => setRoute("Send")}
             className={`rounded-lg border-bottom list-none cursor-pointer py-2 w-1/4 ${
               route == "send" ? "" : ""
-            } text-center rounded-tl-lg`}
+            } text-center rounded-tl-lg hover:scale-95`}
           >
             Send
           </li>
@@ -22,7 +22,7 @@ export default function Main() {
             onClick={() => setRoute("Recipient")}
             className={`rounded-lg border-bottom list-none cursor-pointer py-2 w-1/4 ${
               route == "recipients" ? "" : ""
-            } text-center rounded-tl-lg `}
+            } text-center rounded-tl-lg hover:scale-95 `}
           >
             Recipients
           </li>
@@ -30,7 +30,7 @@ export default function Main() {
             onClick={() => setRoute("RecentTX")}
             className={`rounded-lg border-bottom list-none cursor-pointer py-2 w-1/4 ${
               route == "recent_tx" ? "" : ""
-            } text-center rounded-tl-lg hover:bg-opacity-5`}
+            } text-center rounded-tl-lg hover:bg-opacity-5  hover:scale-95`}
           >
             Recent Txn
           </li>

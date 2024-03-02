@@ -42,7 +42,7 @@ export default function Header() {
           <img
             src="images/logo1.png"
             alt="NA"
-            style={{ height: "7vh", marginLeft: "2vh" }}
+            style={{ height: "7vh", marginLeft: "2vh",  filter: "invert(1)"}}
           />
         </li>
 
