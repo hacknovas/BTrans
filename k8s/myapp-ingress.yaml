@@ -1,10 +1,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: myapp-ingress
+  name: uniswap-ingress
 spec:
   rules:
-  - host: "my.uniswap.com"
+  - host: "dev.uniswap.com"
     http:
       paths:
       - pathType: Prefix
