@@ -77,7 +77,7 @@ export default function Login() {
     <>
       <div className="text-center p-20">
         <div className="d-flex flex-col justify-center items-center">
-          <b>Uniswap</b>
+          <b>BTrans</b>
 
           <img
             src="images/logo1.png"
